@@ -7,7 +7,10 @@ const ShortUrl = new Schema({
     required: true,
 
  },
-   shortID: String
+   shortID:{
+      type: String,
+      required: true
+   }
 });
 
 module.exports = mongoose.model('ShortUrl', ShortUrl);

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short URL Generator</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">🔗 Short URL</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#create">Create URL</a></li>
+            <li><a href="#myurls">My URLs</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#login">Login</a></li>
+            <li><a href="#register">Register</a></li>
+        </ul>
+    </nav>
+
+
+
+    <!-- Create URL Section -->
+    <section id="create" class="section">
+        <h1>✂️ Create a Short URL</h1>
+        <form id="urlForm">
+            <input type="text" id="longUrl" placeholder="Paste your long URL here..." required>
+            <button type="submit">Shorten URL</button>
+        </form>
+        <p id="shortUrlResult"></p>
+    </section>
+
+    <!-- My URLs Section -->
+    <section id="myurls" class="section">
+        <h1>📋 My Shortened URLs</h1>
+        <ul class="url-list" id="urlList"></ul>
+    </section>
+
+  
+  
+
+   
+
+    <!-- JavaScript -->
+    <script>
+        const urlForm = document.getElementById('urlForm');
+        const longUrlInput = document.getElementById('longUrl');
+        const shortUrlResult = document.getElementById('shortUrlResult');
+        const urlList = document.getElementById('urlList');
+
+        // Function to generate a random short code
+        function generateShortCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let shortCode = '';
+            for (let i = 0; i < 6; i++) {
+                shortCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return shortCode;
+        }
+
+        // Form Submission
+        urlForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const longUrl = longUrlInput.value.trim();
+
+            if (longUrl === '') {
+                shortUrlResult.textContent = '⚠️ Please enter a valid URL.';
+                shortUrlResult.style.color = 'red';
+                return;
+            }
+
+            const shortCode = generateShortCode();
+            const shortUrl = `https://short.ly/${shortCode}`;
+
+            // Display short URL
+            shortUrlResult.innerHTML = `✅ Short URL: <a href="${longUrl}" target="_blank">${shortUrl}</a>`;
+            shortUrlResult.style.color = 'green';
+
+            // Add to the URL list
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${longUrl}</span> ➔ <a href="${longUrl}" target="_blank">${shortUrl}</a>`;
+            urlList.appendChild(li);
+
+            // Clear input
+            longUrlInput.value = '';
+        });
+    </script> 
+
+</body>
+</html>
