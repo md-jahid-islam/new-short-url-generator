@@ -7,6 +7,7 @@ const router = express.Router()
 router.use("/api/v1" , apiRoute)
 
 router.get("/:shortID" , renderUrl)
+
 router.get('/', (req, res) => {
     res.render('index');
 

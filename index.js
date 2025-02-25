@@ -8,7 +8,6 @@ app.use(express.static(__dirname, + '/public'));
 app.use(router)
 dbconnect()
  
- //=========== listen 8000 ===========//
  app.listen(8000, ()=> console.log("server is running"))
 
  //  oJkEjvJEeLShRvks
